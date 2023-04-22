@@ -13,7 +13,7 @@ use App\Libraries\Enumerations\UserTypes;
 
 class UserController extends Controller
 {
-    public function getLoginPage(Request $request)
+    public function getSignInPage(Request $request)
     {
         if (Auth::check()) {
             return redirect()->route('dashboard');
@@ -21,7 +21,17 @@ class UserController extends Controller
         $data['urlPath'] = $request->urlPath;
         $department = DB::table('departments')->get();
         $data['departments'] = $department;
-        return view('login', $data);
+        return view('signIn', $data);
+    }
+    public function getSignUpPage(Request $request)
+    {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+        $data['urlPath'] = $request->urlPath;
+        $department = DB::table('departments')->get();
+        $data['departments'] = $department;
+        return view('signUp', $data);
     }
 
     public function postLogin(Request $request)
